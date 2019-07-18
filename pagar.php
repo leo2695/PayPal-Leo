@@ -21,7 +21,8 @@ $producto= htmlspecialchars($_POST['producto']);// htmlspecialchars para agregar
 $precio=htmlspecialchars($_POST['precio']);
 $precio=(int) $precio; //float para que acepte decimales
 $envio=0;
-$total=$precio+$envio;
+$iva=$precio*0.13;
+$total=$precio+$envio+$iva;
 
 /*echo "<pre>";
 var_dump($_POST);
@@ -50,12 +51,13 @@ $listaArticulos->setItems(array($articulo));
 //Details
 $detalles=new Details();
 $detalles->setShipping($envio)
+         ->setTax($iva)
          ->setSubtotal($precio);
 
 /*  */
 $cantidad=new Amount();
 $cantidad->setCurrency('USD')
-        ->setTotal($precio)
+        ->setTotal($total)
         ->setDetails($detalles);
 
 /*   */
@@ -69,8 +71,8 @@ $transaccion->setAmount($cantidad)
 
 /*  */
 $redireccionar=new RedirectUrls();
-$redireccionar->setReturnUrl(URL_SITIO."pago-finalizado.php?exito=true")
-->setCancelUrl(URL_SITIO."pago-finalizado.php?exito=false");
+$redireccionar->setReturnUrl(URL_SITIO."/pago-finalizado.php?exito=true")
+->setCancelUrl(URL_SITIO."/pago-finalizado.php?exito=false");
 
 //echo $redireccionar->getReturnUrl();
 
@@ -84,7 +86,7 @@ try {
     $pago->create($apiContext);
 } catch (PayPal\Exception\PayPalConnectionException $pce) {
     echo "<pre>";
-    print_r(json_encode($pce->getData()));
+    print_r(json_decode($pce->getData()));
     exit;//se encarga de que el programa no se ejecute
     echo "</pre>";
 }
