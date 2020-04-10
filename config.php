@@ -3,7 +3,7 @@
 
 require_once ('paypalsdk/autoload.php');
 
-define('URL_SITIO','http://localhost/PagosPaypal/paypal/');
+define('URL_SITIO','http://localhost:8080/PagosPaypal/paypal/');
 
 //instalar el API de paypal
 $apiContext=new \PayPal\Rest\ApiContext( //$apiContext se puede llamar como yo quiera pero asi es lo normal

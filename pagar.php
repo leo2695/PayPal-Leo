@@ -71,8 +71,8 @@ $transaccion->setAmount($cantidad)
 
 /*  */
 $redireccionar=new RedirectUrls();
-$redireccionar->setReturnUrl(URL_SITIO."/pago-finalizado.php?exito=true")
-->setCancelUrl(URL_SITIO."/pago-finalizado.php?exito=false");
+$redireccionar->setReturnUrl(URL_SITIO."pago-finalizado.php?exito=true")
+->setCancelUrl(URL_SITIO."pago-finalizado.php?exito=false");
 
 //echo $redireccionar->getReturnUrl();
 
